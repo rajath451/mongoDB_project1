@@ -36,10 +36,12 @@ app.post('/submit', async (req, res) => {
     const data = new usermodel({ regno, name, email, password, year, branch });
     await data.save();
     console.log(data);
-    res.send("FORM SUCCESSFULLY SUBMITTED");
+
+    // Send JSON instead of plain text
+    res.json({ success: true, message: "Form successfully submitted" });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error submitting form");
+    res.status(500).json({ success: false, message: "Error submitting form" });
   }
 });
 
