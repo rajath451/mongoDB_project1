@@ -39,8 +39,49 @@
                 <option value="civil">CIVIL</option>
             </select>
 
+
+   
+
             <button type="submit">Submit</button>
         </form>
     </div>
+    <div id="popup" style="
+  display:none;
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  text-align:center;
+">
+
+              <h2>🎉 Thank You!</h2>
+  <p>Your form has been successfully submitted.</p>
+  <button onclick="document.getElementById('popup').style.display='none'">Close</button>
+  <script>
+document.getElementById("myForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
+
+  const response = await fetch("/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
+    document.getElementById("popup").style.display = "block";
+    this.reset(); // clear form after success
+  } else {
+    alert("Error submitting form");
+  }
+});
+</script>
+</div>
+
 </body>
 </html>
