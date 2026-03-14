@@ -35,9 +35,10 @@ app.post('/submit', async (req, res) => {
     const { regno, name, email, password, year, branch } = req.body;
 
     
-    if (!regno || !name || !email || !password || !year || !branch) {
-      return res.status(400).send("All fields are required!");
+   if (!regno || !name || !email || !password || !year || !branch) {
+      return res.sendFile(path.join(__dirname, 'failure.html'));
     }
+
 
     //MongoDB
     const data = new usermodel({ regno, name, email, password, year, branch });
