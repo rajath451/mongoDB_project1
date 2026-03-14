@@ -2,6 +2,12 @@ body{
     background-color: rgba(255, 228, 196, 0.797);
     font-family: Arial, Helvetica, sans-serif;
 }
+.heri{
+    color: black;
+    margin-top: 2rem;
+    align-items: center;
+    text-align: center;
+}
 .container{
     padding: 10px;
     max-width: 500px;
@@ -40,15 +46,4 @@ form button{
     margin-top:10px;
     font-size: 23px;
     color: #fff;
-}
-.popup{
-    display:none;
-  position:fixed;
-  top:50%; left:50%;
-  transform:translate(-50%, -50%);
-  background:#fff;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.3);
-  text-align:center;
 }

@@ -16,12 +16,12 @@ mongoose.connect(mongoUri)
   .catch(err => console.error("MongoDB connection error:", err));
 
 const userschema = new mongoose.Schema({
-  regno: String,
-  name: String,
-  email: String,
-  year: String,
-  password: String,
-  branch: String
+  regno: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  year: { type: String, required: true },
+  password: { type: String, required: true },
+  branch: { type: String, required: true }
 });
 
 const usermodel = mongoose.model("data", userschema);
@@ -33,18 +33,23 @@ app.get('/', (req, res) => {
 app.post('/submit', async (req, res) => {
   try {
     const { regno, name, email, password, year, branch } = req.body;
+
+    
+    if (!regno || !name || !email || !password || !year || !branch) {
+      return res.status(400).send("All fields are required!");
+    }
+
+    //MongoDB
     const data = new usermodel({ regno, name, email, password, year, branch });
     await data.save();
-    console.log(data);
+    console.log("Saved:", data);
 
-    // Send JSON instead of plain text
-    res.json({ success: true, message: "Form successfully submitted" });
+     res.sendFile(path.join(__dirname, 'success.html'));
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "Error submitting form" });
+    res.status(500).send("Error submitting form");
   }
 });
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

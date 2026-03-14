@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Students_form</title>
     <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
+    <div class="heri">
+        <!-- <img src="OIP.webp" alt="" width="50%"> -->
+       <h1>Students Registration Form</h1> 
+    </div>
     <div class="container">
-        <form action="/submit" method="post">
-            <label for="regno">Registration Number :</label>
+        <form id="myForm" action="/submit" method="post">
+            <label for="regno">USN Number :</label>
             <input type="text" id="regno" name="regno">
 
             <label for="name">Name :</label>
@@ -47,36 +51,7 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-    <div id="popup">
-
-        <h2>🎉 Thank You!</h2>
-        <p>Your form has been successfully submitted.</p>
-        <button onclick="document.getElementById('popup').style.display='none'">Close</button>
-
-    </div>
-    <script>
-        document.getElementById("myForm").addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            const response = await fetch("/submit", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                document.getElementById("popup").style.display = "block";
-                this.reset();
-            } else {
-                alert(result.message);
-            }
-        });
-    </script>
+    
 </body>
 
 </html>
